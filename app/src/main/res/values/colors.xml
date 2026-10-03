@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FF0B0E12</color>
+    <color name="surface">#FF151A21</color>
+    <color name="surface_variant">#FF1E2530</color>
+    <color name="accent">#FFFF6A00</color>
+    <color name="on_accent">#FF10131A</color>
+    <color name="text_primary">#FFE6EAF0</color>
+    <color name="text_muted">#FF8A94A6</color>
+    <color name="ok">#FF35D07F</color>
+    <color name="warn">#FFFFB020</color>
+    <color name="error">#FFFF5C5C</color>
+    <color name="divider">#FF252C38</color>
+    <color name="ic_launcher_background">#FFFF6A00</color>
+</resources>
