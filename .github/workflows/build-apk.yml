@@ -50,19 +50,22 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install NDK, CMake, platform and build-tools
+      # android-actions/setup-android@v3 не берём: его дефолтный `packages: tools`
+      # падает с "Failed to find package 'tools'" — legacy-пакет tools из SDK удалён.
+      # На ubuntu-latest sdkmanager уже лежит в $ANDROID_HOME/cmdline-tools/latest.
+      - name: Set up Android SDK, NDK and CMake
         run: |
           set -euo pipefail
-          SDKMANAGER="$(command -v sdkmanager || echo "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager")"
+          ANDROID_HOME="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$SDKMANAGER" || { echo "::error::sdkmanager не найден: $SDKMANAGER"; exit 1; }
           yes | "$SDKMANAGER" --licenses > /dev/null || true
           "$SDKMANAGER" \
             "platforms;android-$COMPILE_SDK" \
             "build-tools;$BUILD_TOOLS" \
             "cmake;$CMAKE_VERSION" \
-            "ndk;$NDK_VERSION"
+            "ndk;$NDK_VERSION" 2>&1 | tail -20
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
