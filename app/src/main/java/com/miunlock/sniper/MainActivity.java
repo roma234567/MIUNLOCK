@@ -25,6 +25,7 @@ import com.miunlock.sniper.core.Prefs;
 import com.miunlock.sniper.core.Schedule;
 import com.miunlock.sniper.core.Session;
 import com.miunlock.sniper.core.Sniper;
+import com.miunlock.sniper.core.SniperService;
 import com.miunlock.sniper.core.TimeSync;
 import com.miunlock.sniper.core.Trace;
 import com.miunlock.sniper.databinding.ActivityMainBinding;
